@@ -1,2 +1,2 @@
 # arkenfox-override-recipes
-A personalized user-overrides.js recipe that balances convenience and privacy
+A personalized user-overrides.js recipe that balances usability and privacy
