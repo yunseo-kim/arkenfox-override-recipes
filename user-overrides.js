@@ -1,3 +1,28 @@
+// SPDX-License-Identifier: MIT
+/*
+MIT License
+
+Copyright (c) 12025 HE Yunseo Kim <contact@yunseo.kim>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+*/
+
 /*** MY OVERRIDES ***/
 user_pref("_user.js.parrot", "overrides section syntax error");
 
@@ -22,6 +47,16 @@ user_pref("browser.link.force_default_user_context_id_for_external_opens", true)
 user_pref("media.peerconnection.ice.no_host", true); // [SETUP-HARDEN] 2004: force exclusion of private IPs from ICE candidates [FF51+]. This will protect your private IP even in TRUSTED scenarios after you grant device access, but often results in breakage on video-conferencing platforms
 
 user_pref("permissions.default.shortcuts", 2); // 2615: disable websites overriding Firefox's keyboard shortcuts [FF58+]
+
+/* 2660: limit allowed extension directories
+ * 1=profile, 2=user, 4=application, 8=system, 16=temporary, 31=all
+ * The pref value represents the sum: e.g. 5 would be profile and application directories
+ * [SETUP-CHROME] Breaks usage of files which are installed outside allowed directories
+ * [1] https://archive.is/DYjAM ***/
+user_pref("extensions.enabledScopes", 7); // [HIDDEN PREF]
+// Relaxed settings to avoid breaking the 'Progressive Web Apps for Firefox' extension.
+// If you don't need it, I recommend reverting to arkenfox's default value of 5.
+
 user_pref("extensions.webextensions.restrictedDomains", ""); // 2662: disable webextension restrictions on certain mozilla domains (you also need 4503) [FF60+]
 
 user_pref("privacy.resistFingerprinting", true); // 4501: enable RFP
