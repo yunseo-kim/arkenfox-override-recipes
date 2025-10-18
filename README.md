@@ -39,7 +39,7 @@ This repository complements the [arkenfox/user.js](https://github.com/arkenfox/u
   - disabling page thumbnail collection
 - Enhanced control:
   - container tab usability: setting behavior on "+ Tab" button to display container menu on left click
-  - enabling third-party DNS-over-HTTPS provider([Control D](https://controld.com/free-dns)) with filtering
+  - enabling third-party DNS-over-HTTPS/3 provider([Control D](https://controld.com/free-dns)) with `[Ads & Trackers, Gambling, Malware, Phishing]` filters
 
 ## Disclaimer
 This repository is maintained independently of the official arkenfox project. Use at your own discretion, and always test changes against your own browsing needs and threat model.
