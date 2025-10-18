@@ -14,7 +14,7 @@ This repository complements the [arkenfox/user.js](https://github.com/arkenfox/u
 2. Copy this repo's [`user-overrides.js`](/user-overrides.js) into your Firefox profile directory (same directory as `prefs.js`).
 3. Run the arkenfox updater script - your overrides will be appended automatically.
 
-🔒 **Note**: You are responsible for understanding the privacy implications of each override. Review them carefully and adapt to your own threat model.
+🔒 **Note**: You are responsible for understanding the privacy/security/usability implications of each override. Review them carefully and adapt to your own threat model.
 
 ## Highlights
 - Usability restores:
@@ -23,18 +23,23 @@ This repository complements the [arkenfox/user.js](https://github.com/arkenfox/u
   - enabling UNC(Uniform Naming Convention) paths
   - setting OCSP fetch failures to soft-fail to avoid breakage
 - Selective hardening:
+  - disabling recent searches
+  - disabling visited link styling
   - setting external links to open in site-specific containers (depending on container extension(s) and their settings)
   - stricter WebRTC ICE candidate filtering (forcing exclusion of private IPs from ICE candidates, may results in breakage on video-conferencing platforms)
   - disabling websites overriding Firefox's keyboard shortcuts
+  - disabling referrer and storage access for resources injected by content scripts
   - enabling RFP
-  - forced English spoofing under RFP
-  - disabling visited link styling
-  - disabling rememberSignons - use a password manager like Bitwarden instead
-  - forcing any permission changes to be session only
+    - enabling letterboxing
+    - forced English spoofing under RFP
+  - disabling rememberSignons - use a password manager like [Bitwarden](https://bitwarden.com/) or [Psono](https://psono.com/) instead
+  - forcing any permission changes to be session-only
+  - forcing all credentials to be session-only
   - disabling location bar history suggestion
+  - disabling page thumbnail collection
 - Enhanced control:
   - container tab usability: setting behavior on "+ Tab" button to display container menu on left click
-  - enabling third-party DNS-over-HTTPS provider(Control D) with filtering
+  - enabling third-party DNS-over-HTTPS provider([Control D](https://controld.com/free-dns)) with filtering
 
 ## Disclaimer
 This repository is maintained independently of the official arkenfox project. Use at your own discretion, and always test changes against your own browsing needs and threat model.
