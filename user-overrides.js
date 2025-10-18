@@ -41,6 +41,11 @@ user_pref("layout.css.visited_links_enabled", false); // [SETUP-HARDEN] 0820: di
 
 user_pref("security.OCSP.require", false); // 1212: set OCSP fetch failures (non-stapled, see 1211) to soft-fail (relaxed settings to prevent SEC_ERROR_OCSP_SERVER_ERROR)
 
+/* 1223: enable strict PKP (Public Key Pinning)
+ * 0=disabled, 1=allow user MiTM (default; such as your antivirus), 2=strict
+ * [SETUP-WEB] MOZILLA_PKIX_ERROR_KEY_PINNING_FAILURE ***/
+// user_pref("security.cert_pinning.enforcement_level", 1);  // If you use your antivirus's web protection feature, consider a relaxed setting instead of the arkenfox's default value of 2.
+
 user_pref("privacy.userContext.newTabContainerOnLeftClick.enabled", true); // 1702: set behavior on "+ Tab" button to display container menu on left click [FF74+]
 user_pref("browser.link.force_default_user_context_id_for_external_opens", true); // 1703: set external links to open in site-specific containers [FF123+]
 
@@ -90,6 +95,8 @@ user_pref("privacy.spoof_english", 2); // 4506: Enable RFP spoof english (harden
 
 user_pref("signon.rememberSignons", false); // 5003: disable saving passwords
 user_pref("permissions.memory_only", true); // [HIDDEN PREF] 5004: disable permissions manager from writing to disk [FF41+] (This means any permission changes are session only)
+user_pref("security.nocertdb", true); // 5005: disable intermediate certificate caching [FF41+] [RESTART] (This affects login/cert/key dbs. The effect is all credentials are session-only.)
 user_pref("browser.urlbar.suggest.history", false); // 5010: disable location bar history suggestion
+user_pref("browser.pagethumbnails.capturing_disabled", true); // [HIDDEN PREF] 5019: disable page thumbnail collection
 
 user_pref("_user.js.parrot", "overrides section successful");
