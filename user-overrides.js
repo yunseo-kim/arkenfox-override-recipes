@@ -30,6 +30,8 @@ user_pref("browser.startup.page", 1); // 0102: Show home page set in 0103 when b
 user_pref("browser.startup.homepage", "about:home"); // 0103: Homepage and new window: Firefox home (default)
 user_pref("browser.newtabpage.enabled", true); // 0104: New tab: Firefox home (default)
 
+user_pref("browser.safebrowsing.allowOverride", false); // 0405: disable "ignore this warning" on SB warnings [FF45+]
+
 user_pref("network.file.disable_unc_paths", false); // [HIDDEN PREF] 0703: Enable UNC (Uniform Naming Convention) paths (relaxed settings for normal operation of extension apps) [FF61+]
 
 user_pref("network.trr.mode", 2); // 0710: enable DNS-over-HTTPS (DoH) [FF60+]
@@ -39,7 +41,7 @@ user_pref("network.trr.custom_uri", "https://freedns.controld.com/no-ads-gamblin
 user_pref("browser.urlbar.recentsearches.featureGate", false); // 0808: disable recent searches [FF120+]
 user_pref("layout.css.visited_links_enabled", false); // [SETUP-HARDEN] 0820: disable coloring of visited links
 
-user_pref("security.OCSP.require", false); // 1212: set OCSP fetch failures (non-stapled, see 1211) to soft-fail (relaxed settings to prevent SEC_ERROR_OCSP_SERVER_ERROR)
+user_pref("security.OCSP.require", false); // 1212: set OCSP fetch failures (non-stapled, see 1211) to soft-fail (relaxed settings to prevent SEC_ERROR_OCSP_SERVER_ERROR | SEC_ERROR_OCSP_UNAUTHORIZED_REQUEST)
 
 /* 1223: enable strict PKP (Public Key Pinning)
  * 0=disabled, 1=allow user MiTM (default; such as your antivirus), 2=strict
@@ -97,6 +99,15 @@ user_pref("signon.rememberSignons", false); // 5003: disable saving passwords
 user_pref("permissions.memory_only", true); // [HIDDEN PREF] 5004: disable permissions manager from writing to disk [FF41+] (This means any permission changes are session only)
 user_pref("security.nocertdb", true); // 5005: disable intermediate certificate caching [FF41+] [RESTART] (This affects login/cert/key dbs. The effect is all credentials are session-only.)
 user_pref("browser.urlbar.suggest.history", false); // 5010: disable location bar history suggestion
+
+/* 5017: disable Form Autofill
+ * If .supportedCountries includes your region (browser.search.region) and .supported
+ * is "detect" (default), then the UI will show. Stored data is not secure, uses JSON
+ * [SETTING] Privacy & Security>Forms and Autofill>Autofill addresses
+ * [1] https://wiki.mozilla.org/Firefox/Features/Form_Autofill ***/
+user_pref("extensions.formautofill.addresses.enabled", false); // [FF55+]
+user_pref("extensions.formautofill.creditCards.enabled", false); // [FF56+]
+
 user_pref("browser.pagethumbnails.capturing_disabled", true); // [HIDDEN PREF] 5019: disable page thumbnail collection
 
 user_pref("_user.js.parrot", "overrides section successful");
