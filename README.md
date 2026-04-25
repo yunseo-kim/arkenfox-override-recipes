@@ -21,14 +21,14 @@ This repository complements the [arkenfox/user.js](https://github.com/arkenfox/u
   - homepage on startup
   - Firefox Home for new windows and tabs
   - enabling UNC(Uniform Naming Convention) paths
-  - setting OCSP fetch failures to soft-fail to avoid breakage
+  - ~~setting OCSP fetch failures to soft-fail to avoid breakage~~ (removed in v144.0: arkenfox user.js upstream no longer enables `security.OCSP.require`)
 - Selective hardening:
   - disabling recent searches
   - disabling visited link styling
   - setting external links to open in site-specific containers (depending on container extension(s) and their settings)
   - stricter WebRTC ICE candidate filtering (forcing exclusion of private IPs from ICE candidates, may results in breakage on video-conferencing platforms)
   - disabling websites overriding Firefox's keyboard shortcuts
-  - disabling referrer and storage access for resources injected by content scripts
+  - ~~disabling referrer and storage access for resources injected by content scripts~~ (removed in v144.0: now arkenfox user.js upstream default)
   - enabling RFP
     - enabling letterboxing
     - forced English spoofing under RFP
