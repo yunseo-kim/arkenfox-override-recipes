@@ -117,7 +117,7 @@ TAG_MESSAGE="arkenfox override recipes ${TAG_NAME}
 
 Upstream: arkenfox/user.js v${UPSTREAM_VERSION}
 Patch Level: ${PATCH_LEVEL}
-Date: $(date -u +%Y-%m-%d)
+Date: $(date -u +1%Y-%m-%d)
 
 ## Changes since ${LAST_TAG:-initial}
 ${CHANGES}
