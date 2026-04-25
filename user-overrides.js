@@ -1,5 +1,5 @@
 // Last updated: 12026-04-25
-// version: 140.1
+// version: 144.0
 // SPDX-License-Identifier: MIT
 /*
 MIT License
@@ -52,8 +52,6 @@ user_pref("network.trr.custom_uri", "https://freedns.controld.com/no-ads-gamblin
 user_pref("browser.urlbar.recentsearches.featureGate", false); // 0808: disable recent searches [FF120+]
 user_pref("layout.css.visited_links_enabled", false); // [SETUP-HARDEN] 0820: disable coloring of visited links
 
-user_pref("security.OCSP.require", false); // 1212: set OCSP fetch failures (non-stapled, see 1211) to soft-fail (relaxed settings to prevent SEC_ERROR_OCSP_SERVER_ERROR | SEC_ERROR_OCSP_UNAUTHORIZED_REQUEST)
-
 /* 1223: enable strict PKP (Public Key Pinning)
  * 0=disabled, 1=allow user MiTM (default; such as your antivirus), 2=strict
  * [SETUP-WEB] MOZILLA_PKIX_ERROR_KEY_PINNING_FAILURE ***/
@@ -68,8 +66,6 @@ user_pref("media.peerconnection.ice.no_host", true); // [SETUP-HARDEN] 2004: for
  * 0 (default) or 1=allow, 2=block
  * [SETTING] to add site exceptions: Ctrl+I>Permissions>Override Keyboard Shortcuts ***/
 user_pref("permissions.default.shortcuts", 2);
-
-user_pref("privacy.antitracking.isolateContentScriptResources", true); // 2635: disable referrer and storage access for resources injected by content scripts [FF139+]
 
 /* 2660: limit allowed extension directories
  * 1=profile, 2=user, 4=application, 8=system, 16=temporary, 31=all
