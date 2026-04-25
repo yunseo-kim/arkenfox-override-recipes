@@ -142,16 +142,46 @@ echo "$TAG_MESSAGE"
 echo "---"
 echo ""
 
+read -r -p "Edit tag message before creating? [y/N] " confirm_edit
+TAG_MESSAGE_FILE=""
+if [[ "$confirm_edit" == "y" || "$confirm_edit" == "Y" ]]; then
+    TAG_MESSAGE_FILE=$(mktemp)
+    echo "$TAG_MESSAGE" > "$TAG_MESSAGE_FILE"
+    ${EDITOR:-vim} "$TAG_MESSAGE_FILE"
+    info "Tag message updated from editor."
+    echo ""
+    echo "Updated tag message:"
+    echo "---"
+    cat "$TAG_MESSAGE_FILE"
+    echo "---"
+    echo ""
+fi
+
 read -r -p "Create and push this tag? [y/N] " confirm
 if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
+    if [[ -n "$TAG_MESSAGE_FILE" ]]; then
+        rm -f "$TAG_MESSAGE_FILE"
+    fi
     info "Aborted. No tag was created."
     exit 0
 fi
 
 if [[ "$USE_GPG" == true ]]; then
-    git tag -s "$TAG_NAME" -m "$TAG_MESSAGE"
+    if [[ -n "$TAG_MESSAGE_FILE" ]]; then
+        git tag -s "$TAG_NAME" -F "$TAG_MESSAGE_FILE"
+    else
+        git tag -s "$TAG_NAME" -m "$TAG_MESSAGE"
+    fi
 else
-    git tag -a "$TAG_NAME" -m "$TAG_MESSAGE"
+    if [[ -n "$TAG_MESSAGE_FILE" ]]; then
+        git tag -a "$TAG_NAME" -F "$TAG_MESSAGE_FILE"
+    else
+        git tag -a "$TAG_NAME" -m "$TAG_MESSAGE"
+    fi
+fi
+
+if [[ -n "$TAG_MESSAGE_FILE" ]]; then
+    rm -f "$TAG_MESSAGE_FILE"
 fi
 
 info "Tag '${TAG_NAME}' created."
@@ -171,7 +201,7 @@ if command -v gh > /dev/null 2>&1; then
     if [[ "$confirm_release" == "y" || "$confirm_release" == "Y" ]]; then
         gh release create "$TAG_NAME" \
             --title "arkenfox override recipes ${TAG_NAME}" \
-            --notes "$TAG_MESSAGE" \
+            --notes "$(git tag -l --format='%(contents)' "$TAG_NAME")" \
             || warn "GitHub release creation failed."
     fi
 else
