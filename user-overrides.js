@@ -1,8 +1,10 @@
+// Last updated: 12026-04-25
+// version: 140.1
 // SPDX-License-Identifier: MIT
 /*
 MIT License
 
-Copyright (c) 12025 HE Yunseo Kim <contact@yunseo.kim>
+Copyright (c) 12026 HE Yunseo Kim <dev@yunseo.kim>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -34,8 +36,17 @@ user_pref("browser.safebrowsing.allowOverride", false); // 0405: disable "ignore
 
 user_pref("network.file.disable_unc_paths", false); // [HIDDEN PREF] 0703: Enable UNC (Uniform Naming Convention) paths (relaxed settings for normal operation of extension apps) [FF61+]
 
-user_pref("network.trr.mode", 2); // 0710: enable DNS-over-HTTPS (DoH) [FF60+]
-user_pref("network.trr.uri", "https://freedns.controld.com/no-ads-gambling-malware-typo"); // 0712: set DoH provider
+/* 0710: enable DNS-over-HTTPS (DoH) [FF60+]
+ * 0=default, 2=increased (TRR (Trusted Recursive Resolver) first), 3=max (TRR only), 5=off (no rollout)
+ * see "doh-rollout.home-region": USA 2019, Canada 2021, Russia/Ukraine 2022 [3]
+ * [SETTING] Privacy & Security>DNS over HTTPS ***/
+user_pref("network.trr.mode", 2);
+
+/* 0712: set DoH provider
+ * The custom uri is the value shown when you "Choose provider>Custom>"
+ * [NOTE] If you USE custom then "network.trr.uri" should be set the same
+ * [SETTING] Privacy & Security>DNS over HTTPS>Increased/Max>Choose provider ***/
+user_pref("network.trr.uri", "https://freedns.controld.com/no-ads-gambling-malware-typo");
 user_pref("network.trr.custom_uri", "https://freedns.controld.com/no-ads-gambling-malware-typo");
 
 user_pref("browser.urlbar.recentsearches.featureGate", false); // 0808: disable recent searches [FF120+]
@@ -46,14 +57,18 @@ user_pref("security.OCSP.require", false); // 1212: set OCSP fetch failures (non
 /* 1223: enable strict PKP (Public Key Pinning)
  * 0=disabled, 1=allow user MiTM (default; such as your antivirus), 2=strict
  * [SETUP-WEB] MOZILLA_PKIX_ERROR_KEY_PINNING_FAILURE ***/
-// user_pref("security.cert_pinning.enforcement_level", 1);  // If you use your antivirus's web protection feature, consider a relaxed setting instead of the arkenfox's default value of 2.
+// user_pref("security.cert_pinning.enforcement_level", 1);  // If you use your antivirus's web protection feature, consider uncommenting this line to use the relaxed setting instead of the arkenfox's default value of 2.
 
 user_pref("privacy.userContext.newTabContainerOnLeftClick.enabled", true); // 1702: set behavior on "+ Tab" button to display container menu on left click [FF74+]
 user_pref("browser.link.force_default_user_context_id_for_external_opens", true); // 1703: set external links to open in site-specific containers [FF123+]
 
 user_pref("media.peerconnection.ice.no_host", true); // [SETUP-HARDEN] 2004: force exclusion of private IPs from ICE candidates [FF51+]. This will protect your private IP even in TRUSTED scenarios after you grant device access, but often results in breakage on video-conferencing platforms
 
-user_pref("permissions.default.shortcuts", 2); // 2615: disable websites overriding Firefox's keyboard shortcuts [FF58+]
+/* 2615: disable websites overriding Firefox's keyboard shortcuts [FF58+]
+ * 0 (default) or 1=allow, 2=block
+ * [SETTING] to add site exceptions: Ctrl+I>Permissions>Override Keyboard Shortcuts ***/
+user_pref("permissions.default.shortcuts", 2);
+
 user_pref("privacy.antitracking.isolateContentScriptResources", true); // 2635: disable referrer and storage access for resources injected by content scripts [FF139+]
 
 /* 2660: limit allowed extension directories
@@ -62,7 +77,7 @@ user_pref("privacy.antitracking.isolateContentScriptResources", true); // 2635: 
  * [SETUP-CHROME] Breaks usage of files which are installed outside allowed directories
  * [1] https://archive.is/DYjAM ***/
 user_pref("extensions.enabledScopes", 7); // [HIDDEN PREF]
-// Relaxed settings to avoid breaking the 'Progressive Web Apps for Firefox' extension.
+// Relaxed settings to prevent breaking some extensions, such as 'Progressive Web Apps for Firefox'
 // If you don't need it, I recommend reverting to arkenfox's default value of 5.
 
 user_pref("extensions.webextensions.restrictedDomains", ""); // 2662: disable webextension restrictions on certain mozilla domains (you also need 4503) [FF60+]
@@ -91,9 +106,14 @@ user_pref("privacy.resistFingerprinting.letterboxing", true); // [HIDDEN PREF]
  * [NOTE]: The pref takes comma separated values: e.g. "*domain1.tld, *domain2.tld"
  * Working domain examples: "arkenfox.github.io", "*github.io"
  * Non-working domain examples: "https://arkenfox.github.io", "github.io", "*arkenfox.github.io" ***/
-// user_pref("privacy.resistFingerprinting.exemptedDomains", "*.example.invalid"); // Fill in your exceptions here.
+// user_pref("privacy.resistFingerprinting.exemptedDomains", "*.example.invalid"); // If necessary, uncomment this line and add your exception here.
 
-user_pref("privacy.spoof_english", 2); // 4506: Enable RFP spoof english (hardened settings) [FF59+] (0=prompt, 1=disabled, 2=enabled)
+/* 4506: disable RFP spoof english prompt [FF59+]
+ * 0=prompt, 1=disabled, 2=enabled
+ * [NOTE] When changing from value 2, preferred languages ('intl.accept_languages') is not reset.
+ * [SETUP-WEB] when enabled, sets 'en-US, en' for displaying pages and 'en-US' as locale.
+ * [SETTING] General>Language>Choose your preferred language for displaying pages>Choose>Request English... ***/
+user_pref("privacy.spoof_english", 2); // Enable RFP spoof english (hardened settings)
 
 user_pref("signon.rememberSignons", false); // 5003: disable saving passwords
 user_pref("permissions.memory_only", true); // [HIDDEN PREF] 5004: disable permissions manager from writing to disk [FF41+] (This means any permission changes are session only)
