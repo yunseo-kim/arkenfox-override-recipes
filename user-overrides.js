@@ -1,5 +1,5 @@
-// Last updated: 12026-04-25
-// version: 144.0
+// Last updated: 12026-04-29
+// version: 144.0-1
 // SPDX-License-Identifier: MIT
 /*
 MIT License
@@ -77,6 +77,12 @@ user_pref("extensions.enabledScopes", 7); // [HIDDEN PREF]
 // If you don't need it, I recommend reverting to arkenfox's default value of 5.
 
 user_pref("extensions.webextensions.restrictedDomains", ""); // 2662: disable webextension restrictions on certain mozilla domains (you also need 4503) [FF60+]
+
+/* 2705: set ETP Strict/Custom exception lists (FF141+)
+ [SETTING] Options>Privacy & Security>Enhanced Tracking Protection>Strict/Custom>Fix major [baseline] | minor [convenience]
+ [1] https://support.mozilla.org/en-US/kb/manage-enhanced-tracking-protection-exceptions
+ [2] https://etp-exceptions.mozilla.org/ ***/
+user_pref("privacy.trackingprotection.allow_list.convenience.enabled", false); // [DEFAULT: true]
 
 /* 4501: enable RFP
  * [NOTE] pbmode applies if true and the original pref is false
